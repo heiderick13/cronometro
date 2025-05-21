@@ -4,10 +4,39 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>Cronomêtro</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <div id="app">
+      <div class="container">
+        <input type="time" id="setDuration">
+        <input type="button" value="Start" id="startBtn">
+      </div>
+    </div>
+    <script type="module" src="/src/main.js">
+      const starBtn = documentQuerySelector("#startBtn")
+      function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+
+        setInterval(() => {
+          minutes = parseInt(timer / 60, 10)
+          seconds = parseInt(timer % 60, 10)
+          
+          minutes = minutes < 10 ? "0" + minutes : minutes;
+          seconds = seconds < 10 ? "0" + seconds : seconds;
+
+          display.textContent = minutes + ":" + seconds;
+
+          if (timer < 0) {
+            timer = duration;
+          }
+        }, 1000);
+      }
+
+      window.onload = function(duration) {
+        const inputDuration = documentQuerySelector("#setDuration")
+        duration = inputDuration.textContent;
+      };
+    </script>
   </body>
 </html>
